@@ -1,2 +1,22 @@
-Hello,
-I'm at Version 2
+Helm  Basics :
+
+Installation of charts
+Modifications of Values file. 
+Helm commands
+
+Terraform:
+usage of Function and conditions to manage multiple environments (tfvars)
+Like: Count, for_each, ternary operators for if else, Look up functions, 
+interpolation
+lifecycle
+local variables
+
+Rancher Basics
+Multi cloud Cluster Management and its feature walkthrough. 
+
+
+
+ (Optional but good to have)EFK : Monitoring, Alerting, Log Aggregation 
+ 
+ 
+

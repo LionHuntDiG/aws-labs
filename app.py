@@ -3,36 +3,38 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
 
-# Database connection details
-DB_HOST = os.getenv('DB_HOST')
-DB_NAME = os.getenv('DB_NAME')
-DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
+# Database connection details from environment variables
+DB_HOST = "database-1.czomwkg6a2em.ap-south-1.rds.amazonaws.com"
+DB_NAME = "database-1"
+DB_USER = "postgres"
+DB_PASSWORD = "Shanmukha.123"
 
 # Initialize the database
 def init_db():
-    conn = psycopg2.connect(
-        host=DB_HOST,
-        database=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD
-    )
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
-            email VARCHAR(100) NOT NULL,
-            age INTEGER NOT NULL
-        )
-    ''')
-    conn.commit()
-    cursor.close()
-    conn.close()
+    try:
+        with psycopg2.connect(
+            host=DB_HOST,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD
+        ) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS users (
+                        id SERIAL PRIMARY KEY,
+                        name VARCHAR(100) NOT NULL,
+                        email VARCHAR(100) NOT NULL,
+                        age INTEGER NOT NULL
+                    )
+                ''')
+                conn.commit()
+    except Exception as e:
+        print(f"Error initializing the database: {e}")
 
 # Route for the form
 @app.route('/')
@@ -47,22 +49,22 @@ def submit():
         email = request.form['email']
         age = request.form['age']
 
-        conn = psycopg2.connect(
+        with psycopg2.connect(
             host=DB_HOST,
             database=DB_NAME,
             user=DB_USER,
             password=DB_PASSWORD
-        )
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO users (name, email, age)
-            VALUES (%s, %s, %s)
-        ''', (name, email, age))
-        conn.commit()
-        cursor.close()
-        conn.close()
+        ) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute('''
+                    INSERT INTO users (name, email, age)
+                    VALUES (%s, %s, %s)
+                ''', (name, email, age))
+                conn.commit()
 
         return jsonify({'success': True})
+    except psycopg2.Error as db_error:
+        return jsonify({'success': False, 'error': f"Database error: {db_error}"})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
@@ -70,30 +72,21 @@ def submit():
 @app.route('/data', methods=['GET'])
 def get_data():
     try:
-        conn = psycopg2.connect(
+        with psycopg2.connect(
             host=DB_HOST,
             database=DB_NAME,
             user=DB_USER,
             password=DB_PASSWORD
-        )
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM users')
-        rows = cursor.fetchall()
-        cursor.close()
-        conn.close()
+        ) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute('SELECT * FROM users')
+                rows = cursor.fetchall()
 
         # Format data as JSON
-        users = []
-        for row in rows:
-            user = {
-                'id': row[0],
-                'name': row[1],
-                'email': row[2],
-                'age': row[3]
-            }
-            users.append(user)
-
+        users = [{'id': row[0], 'name': row[1], 'email': row[2], 'age': row[3]} for row in rows]
         return jsonify(users)
+    except psycopg2.Error as db_error:
+        return jsonify({'success': False, 'error': f"Database error: {db_error}"})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 

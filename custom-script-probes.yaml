@@ -1,0 +1,74 @@
+containers:
+      - name: my-application-container
+        image: my-application-image:latest
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /path/to/check_network_and_memory.sh
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /path/to/check_network_and_memory.sh
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+					
+Designed and implemented a robust IAM policy framework to securely control access to AWS services and resources. Created and managed users, groups, and roles, defining permissions to implement fine-grained access controls. 
+
+Enabled Multi-factor Authentication (MFA) for all users to enhance account security. Integrated identity federation to allow users from external identity providers to access AWS resources securely. Established strict password policies and permission boundaries to ensure security compliance.
+
+Architected and configured Virtual Private Clouds (VPCs) to create isolated virtual networks within the AWS cloud. Defined subnets, route tables, security groups, and network access control lists (NACLs) to control traffic flow within VPCs. 
+Deployed AWS WAF to protect web applications and APIs against common web exploits by creating rules to filter out malicious traffic.
+
+Implemented AWS Shield for protection against distributed denial-of-service (DDoS) attacks. Configured AWS Network Firewall to filter traffic at the network layer using stateful inspection and customizable rules.
+
+Set up Amazon GuardDuty to detect unusual or malicious activity in the AWS environment using machine learning. Configured Amazon Inspector to automate security assessments, checking for vulnerabilities and deviations from security best practices. 
+Utilized AWS Security Hub to aggregate security findings from various AWS services into a centralized dashboard for improved visibility. Employed Amazon Detective to analyze, investigate, and quickly identify the root cause of security findings or suspicious activities.
+
+Leveraged AWS Key Management Service (KMS) to create and manage encryption keys for protecting sensitive data. Integrated AWS CloudHSM for secure key management and cryptographic operations using hardware security modules (HSMs). Deployed AWS Macie to discover and protect sensitive data in Amazon S3 using machine learning.
+
+Implemented AWS Secrets Manager to securely manage and rotate database credentials, API keys, and other sensitive information. Utilized AWS Artifact for on-demand access to AWS security and compliance reports, ensuring adherence to regulatory requirements. 
+
+Configured AWS Config to provide a detailed inventory of AWS resources and record configuration changes over time, enabling compliance monitoring and auditing.
+					
+					
+
+
+
+Designed and implemented a robust IAM policy framework to securely control access to AWS services and resources. Created and managed users, groups, and roles, defining permissions to implement fine-grained access controls. 
+Enabled Multi-factor Authentication (MFA) for all users to enhance account security. Integrated identity federation to allow users from external identity providers to access AWS resources securely. 
+Established strict password policies and permission boundaries to ensure security compliance.
+Architected and configured Virtual Private Clouds (VPCs) to create isolated virtual networks within the AWS cloud. Defined subnets, route tables, security groups, and network access control lists (NACLs) to control traffic flow within VPCs. 
+Deployed AWS WAF to protect web applications and APIs against common web exploits by creating rules to filter out malicious traffic. Implemented AWS Shield for protection against distributed denial-of-service (DDoS) attacks. 
+Configured AWS Network Firewall to filter traffic at the network layer using stateful inspection and customizable rules.
+Set up Amazon GuardDuty to detect unusual or malicious activity in the AWS environment using machine learning. Configured Amazon Inspector to automate security assessments, checking for vulnerabilities and deviations from security best practices. 
+Utilized AWS Security Hub to aggregate security findings from various AWS services into a centralized dashboard for improved visibility. 
+Employed Amazon Detective to analyze, investigate, and quickly identify the root cause of security findings or suspicious activities.
+Leveraged AWS Key Management Service (KMS) to create and manage encryption keys for protecting sensitive data. 
+Integrated AWS CloudHSM for secure key management and cryptographic operations using hardware security modules (HSMs). 
+Deployed AWS Macie to discover and protect sensitive data in Amazon S3 using machine learning.
+Implemented AWS Secrets Manager to securely manage and rotate database credentials, API keys, and other sensitive information. Utilized AWS Artifact for on-demand access to AWS security and compliance reports, ensuring adherence to regulatory requirements. 
+Configured AWS Config to provide a detailed inventory of AWS resources and record configuration changes over time, enabling compliance monitoring and auditing.
+Conducted regular audits to analyze the maturity of the current tech stack and infrastructure. Prepared enterprise design documents according to project and business needs, considering security and compliance. 
+Executed proofs of concepts and reviewed new tech stacks while onboarding as part of continuous improvement of existing designs. Engaged in developing applications and deploying infrastructure to ensure timely delivery in accordance with design.
+Regularly participated in identifying, analyzing alternatives, and conducting product recommendations related to platform, software, and network configurations. 
+Utilized AWS services to implement scalable solutions as per project needs, considering a cloud-native first approach. 
+Created endpoint services to pull images from ECR to private subnet nodes, enhancing the security posture of EKS clusters.
+Developed end-to-end automated application and infrastructure deployment processes using GitHub Actions as a cloud-native first methodology, employing Terraform modules and CloudFormation templates for web apps and complex three-tier applications. Designed and implemented comprehensive monitoring solutions for infrastructure and applications as a continuous monitoring process to identify gaps and issues, enhancing the application user experience.
+Designed and implemented disaster recovery (DR) strategies for many applications as per their needs, suggesting the right strategies like active-active and active-passive, and choosing appropriate regions and solutions. Designed and documented efficient business continuity plans (BCP) by considering risk assessments. Architected multi-region disaster recovery solutions to ensure business continuity with minimal downtime during critical failures. Configured AWS backup solutions and failover mechanisms to achieve RTO and RPO targets.
+Led the migration of legacy systems to AWS, reducing operational costs and improving deployment times by 40%. Optimized AWS resource usage to reduce costs by 30% through strategic use of Reserved Instances, Spot Instances, and scaling policies. 
+Conducted regular reviews and audits of third-party services like ingress controllers, Metrics Server, Istio Service Mesh, Calico, Rancher, Cert-manager, and other third-party SaaS models on environments to ensure cost-effectiveness and security compliance.
+Consistently examined the production infrastructure and live applications by analyzing data points such as live metrics, traces, and telemetry. This helped uncover hidden issues and take proactive measures to prevent sudden failures.
+
+
