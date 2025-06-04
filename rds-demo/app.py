@@ -10,9 +10,9 @@ app = Flask(__name__)
 
 # Database connection details from environment variables
 DB_HOST = "database-1.czomwkg6a2em.ap-south-1.rds.amazonaws.com"
-DB_NAME = "database-1"
+DB_NAME = "postgres"
 DB_USER = "postgres"
-DB_PASSWORD = "Shanmukha.123"
+DB_PASSWORD = "helloworld.123"
 
 # Initialize the database
 def init_db():

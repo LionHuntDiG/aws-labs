@@ -1,0 +1,22 @@
+Create two s3 buckets
+Enable Versioning 
+on bucket A > replication rules to cross region bucket B to all files . 
+wait for 10 mnts
+
+####################################################################################################
+Bucket policy
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "allow-get-object",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::test-132443353/*"
+        }
+    ]
+}
+
+####################################################################################################

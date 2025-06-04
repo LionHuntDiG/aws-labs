@@ -1,0 +1,85 @@
+Create a EBS volume and remember AZ
+
+Create a EC2 instance in same AZ
+
+Go to EBS sections and select that newly created EBS and actions >  attach to EC2 > use custom device name like /dev/xvdf
+
+ssh into ec2 
+
+lsblk
+
+sudo file -s /dev/xvdf
+
+sudo mkfs -t xfs /dev/xvdf
+
+sudo mkdir ebs-demo
+
+sudo mount /dev/xvdf ebs-demo
+
+ df -h
+
+ sudo blkid  > get the UUID of new device  eg:07579936-29e2-4ad5-b555-f161d61cdbe0
+
+ sudo vi /etc/fstab
+
+ UUID=07579936-29e2-4ad5-b555-f161d61cdbe0  ebs-demo  xfs defaults,nofail
+
+# defaults: This is a shorthand for a set of default mount options. It includes:
+
+# rw: Mount the filesystem as read-write.
+# suid: Allow set-user-identifier or set-group-identifier bits.
+# dev: Interpret character or block special devices on the filesystem.
+# exec: Allow executable binaries.
+# auto: Automatically mount the filesystem.
+# nouser: Only allow root to mount the filesystem.
+# async: All I/O to the filesystem should be done asynchronously.
+
+
+# nofail: Ensures the system continues to boot even if the mount fails.
+
+
+Attaching it to a different server on same availability zone
+
+sudo umount ebs-demo
+# if above command fails  like below
+
+# sudo umount ebs-demo
+# umount: ebs-demo: target is busy.
+# ubuntu@ip-172-31-1-214:/$ sudo lsof +D ebs-demo
+# COMMAND  PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+# bash    1143 ubuntu  cwd    DIR 202,80       22  128 ebs-demo
+# ubuntu@ip-172-31-1-214:/$ kill -9 1143
+
+# then re-exute umount command
+Go to Volumes and detach the volume and Attach it to new instance of same Same AZ, and login into new Instance
+
+lsblk
+sudo file -s /dev/xvdf
+sudo mkdir ebs-demo
+sudo mount /dev/xvdf ebs-demo
+cd ebs-demo
+ls
+File should be present.
+
+
+Attaching it to a different server on different availability zone
+
+sudo umount ebs-demo
+and detach it from server
+select it and create a snapshot
+
+go to snapshots and select it and create a volume from snapshot in different availability zone.
+attach to server 3 on different AZ.
+
+Attaching it to a different server on different region
+
+ go to snapshots and do copy snapshot and select desired region > select snapshot and create volume from snapshot and attach it server and different region
+
+ 
+
+
+
+
+
+
+

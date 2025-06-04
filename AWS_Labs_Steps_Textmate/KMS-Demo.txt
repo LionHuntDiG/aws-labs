@@ -1,0 +1,33 @@
+########################################################################
+AWS KMS Demo Steps
+########################################################################
+Create a symetric key under customer managed keys called dbkey
+
+aws configure
+
+aws kms list-aliases
+
+echo "744b39db-f731-45c1-bc6e-1958043d2f87" > db-data.txt
+
+aws kms encrypt \
+    --key-id alias/dbkey \
+    --plaintext fileb://db-data.txt \
+    --output text \
+    --query CiphertextBlob \
+    | base64 --decode > db-data.enc
+		
+cat db-data.enc
+
+aws kms decrypt \
+    --ciphertext-blob fileb://db-data.enc \
+    --output text \
+    --query Plaintext \
+    | base64 --decode > db-data-decrypted.txt
+
+cat db-data-decrypted.txt
+
+diff db-data.txt db-data-decrypted.txt
+
+rm db-data.txt db-data.enc db-data-decrypted.txt
+
+
